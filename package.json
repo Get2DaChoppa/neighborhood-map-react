@@ -1,0 +1,18 @@
+{
+  "name": "neighborhood-map-react",
+  "version": "1.1.1",
+  "private": true,
+  "homepage": "https://get2dachoppa.github.io/neighborhood-map-react/",
+  "dependencies": {
+    "google-maps-react": "^2.0.2",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2",
+    "react-scripts": "1.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
