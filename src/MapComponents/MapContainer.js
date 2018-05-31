@@ -21,6 +21,7 @@ export class MapContainer extends React.Component {
         street: '',
         contact: '',
         readMore: '',
+        readMoreTxt: '',
         fullAdress: '',
         error: '',
         markers: [],
@@ -41,6 +42,7 @@ export class MapContainer extends React.Component {
         });
         this.getMarkerInfo(marker);
         this.animateMarker(marker);
+        console.log(Marker)
     }
 
     onMapClicked = (props) => {
@@ -81,7 +83,8 @@ export class MapContainer extends React.Component {
                 if (response.status !== 200) {
                     self.setState({
                         error: "Data loading failure",
-                        readMore: ''
+                        readMore: '',
+                        readMoreTxt: ''
                     })
                     return;
                 }
@@ -100,6 +103,7 @@ export class MapContainer extends React.Component {
                         street:street,
                         contact: contact,
                         readMore: readMore,
+                        readMoreTxt: 'Ream more on Foursquare',
                         fullAdress: fullAdress,
                         error: ""
                     });
@@ -108,7 +112,8 @@ export class MapContainer extends React.Component {
             .catch(function(err) {
                 self.setState({
                         error: "Data loading failure",
-                        readMore: ''
+                        readMore: '',
+                        readMoreTxt: ''
                     })
             });
     }
@@ -152,7 +157,7 @@ export class MapContainer extends React.Component {
                         <h2>{this.state.place}</h2>
                         <h3>{this.state.street}</h3>
                         <h3>{this.state.fullAdress}</h3>
-                        <a href={this.state.readMore} target="_blank">Read more on Foursquare</a>
+                        <a href={this.state.readMore} target="_blank">{this.state.readMoreTxt}</a>
                     </div>
                 </InfoWindow>:
                 <InfoWindow
@@ -164,7 +169,7 @@ export class MapContainer extends React.Component {
                         <h2>{this.state.place}</h2>
                         <h3>{this.state.street}</h3>
                         <h3>{this.state.fullAdress}</h3>
-                        <a href={this.state.readMore} target="_blank">Read more on Foursquare</a>
+                        <a href={this.state.readMore} target="_blank">{this.state.readMoreTxt}</a>
                     </div>
                 </InfoWindow>}
             </Map>
@@ -182,6 +187,7 @@ MapContainer.propTypes = {
 }
 
 export default GoogleApiWrapper({
-  apiKey: 'AIzaSyDy9ex5YAr6vI-2ziLFKq6FpFJzZyDoVIQ'
+  apiKey: 'AIzaSyDy9ex5YAr6vI-2ziLFKq6FpFJzZyDoVIQ',
+  script:'async'
 })(MapContainer)
 

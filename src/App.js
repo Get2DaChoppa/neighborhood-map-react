@@ -43,7 +43,7 @@ class App extends React.Component {
         const locations = this.state.locations;
         const filteredLocations = locations.filter(
             (location) => {
-                return location.title.toLowerCase().indexOf(this.state.search) !== -1;
+                return location.title.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
             }
         );
         this.setState({

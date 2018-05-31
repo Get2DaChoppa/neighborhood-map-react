@@ -41,6 +41,7 @@ class List extends Component {
                             {locations.map((location) =>(
                                 <li className="list-group-item "
                                     tabIndex="0"
+                                    role="button"
                                     id={location.title}
                                     key={location.id}
                                     onClick={this.props.clickHandler}
