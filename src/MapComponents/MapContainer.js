@@ -41,7 +41,6 @@ export class MapContainer extends React.Component {
         });
         this.getMarkerInfo(marker);
         this.animateMarker(marker);
-        console.log(props)
     }
 
     onMapClicked = (props) => {

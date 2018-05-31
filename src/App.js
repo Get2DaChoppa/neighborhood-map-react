@@ -59,7 +59,7 @@ class App extends React.Component {
         },() => {this.selectLoc()})
     }
 
-//---------****************!!!!!!!!!!!!!*****************------------//
+//---------Matches the clicked list item with its marker-----------//
     selectLoc() {
         const locations = this.state.locations;
         const selectedPlace = locations.filter(
@@ -84,6 +84,7 @@ class App extends React.Component {
         })
     }
 
+//---------------------Resets marker's state ---------------------//
     resetMarker(event) {
         this.setState({
             isClicked: false,
