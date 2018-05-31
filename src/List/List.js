@@ -39,7 +39,8 @@ class List extends Component {
                     <div className="filtered-locations" >
                         <ul className="list-group" id="list" >
                             {locations.map((location) =>(
-                                <li className="list-group-item"
+                                <li className="list-group-item "
+                                    tabIndex="0"
                                     id={location.title}
                                     key={location.id}
                                     onClick={this.props.clickHandler}

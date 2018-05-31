@@ -12,6 +12,7 @@ export default class Search extends Component {
                         className="form-control"
                         placeholder="Search"
                         id="srch-term"
+                        role="search"
                     />
                 </div>
             </form>

@@ -8,38 +8,7 @@ class App extends React.Component {
     constructor(){
         super();
         this.state= {
-            locations : [
-                {
-                title:"Mind The Cup",
-                pos:{lat:38.0115728, lng:23.6932724},
-                id:1,
-                showInfoWindow:false
-                },
-                {
-                title:"Juicy Grill",
-                pos:{lat:37.9987607,lng:23.8000526},
-                id:2,
-                showInfoWindow:false
-                },
-                {
-                title:"Sushimou",
-                pos:{lat:37.9744241,lng:23.7324616},
-                id:3,
-                showInfoWindow:false
-                },
-                {
-                title:"Colibri",
-                pos:{lat:37.9663405,lng:23.742766},
-                id:4,
-                showInfoWindow:false
-                },
-                {
-                title:"Mirch",
-                pos:{lat:37.9769771,lng:23.7236935},
-                id:5,
-                showInfoWindow:false
-                }
-            ],
+            locations: require("./Data/locations.json"),
             search:'',
             clicked:'',
             filteredLocations: [],
@@ -55,15 +24,10 @@ class App extends React.Component {
         this.resetMarker = this.resetMarker.bind(this);
     }
 
-    componentDidMount(marker) {
-        this.showmarker(marker);
+    componentDidMount() {
         this.setState({
             filteredLocations : this.state.locations
         })
-    }
-
-    showmarker(marker) {
-        console.log(marker)
     }
 
 //--------------Handles the input of the list's search bar--------------//
@@ -131,7 +95,7 @@ class App extends React.Component {
     render() {
         const locations = this.state.filteredLocations;
         return (
-            <div className="app-container">
+            <div className="app-container" role="application">
                 <header><h1>Restaurants</h1></header>
                 <MapContainer
                     locations={locations}

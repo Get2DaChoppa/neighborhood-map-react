@@ -1,0 +1,27 @@
+[
+    {
+        "title":"Mind The Cup",
+        "pos":{"lat":38.0115728, "lng":23.6932724},
+        "id":1
+    },
+    {
+        "title":"Juicy Grill",
+        "pos":{"lat":37.9987607,"lng":23.8000526},
+        "id":2
+    },
+    {
+        "title":"Sushimou",
+        "pos":{"lat":37.9744241,"lng":23.7324616},
+        "id":3
+    },
+    {
+        "title":"Colibri",
+        "pos":{"lat":37.9663405,"lng":23.742766},
+        "id":4
+    },
+    {
+        "title":"Mirch",
+        "pos":{"lat":37.9769771,"lng":23.7236935},
+        "id":5
+    }
+]

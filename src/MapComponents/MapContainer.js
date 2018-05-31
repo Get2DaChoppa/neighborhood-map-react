@@ -5,10 +5,14 @@ import './Map.css';
 
 export class MapContainer extends React.Component {
 
-    componentWillUpdate(nextProps, nextState) {
-        if(this.props.isClicked){
-            //eslint-disable-next-line
-            this.getMarkerInfo(eval(this.props.marker).marker);
+    componentDidUpdate(nextProps, nextState) {
+        //eslint-disable-next-line
+        let markerId = eval(this.props.marker);
+        if(this.props !== nextProps && this.props.isClicked){
+            this.getMarkerInfo(markerId.marker);
+            this.animateMarker(markerId.marker);
+        }else {
+            return ;
         }
     }
 
@@ -18,10 +22,12 @@ export class MapContainer extends React.Component {
         contact: '',
         readMore: '',
         fullAdress: '',
+        error: '',
         markers: [],
         showingInfoWindow: false,
         activeMarker: {},
-        selectedPlace: {}
+        selectedPlace: {},
+        animation: ''
     };
 
     onMarkerClick = (props, marker, e) =>{
@@ -30,9 +36,12 @@ export class MapContainer extends React.Component {
             selectedPlace: props,
             activeMarker: marker,
             showingInfoWindow: true,
-            mapCenter: props.position
+            mapCenter: props.position,
+            animation: ""
         });
         this.getMarkerInfo(marker);
+        this.animateMarker(marker);
+        console.log(props)
     }
 
     onMapClicked = (props) => {
@@ -45,12 +54,17 @@ export class MapContainer extends React.Component {
         this.props.resetMarker();
     };
 
+    animateMarker(marker) {
+        const animation = this.props.google.maps.Animation.DROP
+        marker.setAnimation(animation: animation);
+    }
+
     getMarkerInfo(marker) {
         const self = this;
 
         // Add the api keys for foursquare
-        const clientId = "R4GG3BJGD2BOKTAHFPD5JHGYJ4JCIJILXBGIKYYEYU2YXWQG";
-        const clientSecret = "DHX5E14N1EM54EIMKO5ZQJ2X34RVTFY3PESRUEJTPQI0F2HN";
+        const clientId = "3OZKHL4HY2NYLGV01RZTVIG1ROPX2CGHL4IMDAP0J0VHO41O";
+        const clientSecret = "PNKCYTQETZHAL5XEDXIQPHVY0NGHREK3CDKAN53E4WPRU5SU";
 
         // Build the api endpoint
         const url =
@@ -66,7 +80,10 @@ export class MapContainer extends React.Component {
         fetch(url)
             .then(function(response) {
                 if (response.status !== 200) {
-                    self.state.place("Sorry data can't be loaded");
+                    self.setState({
+                        error: "Data loading failure",
+                        readMore: ''
+                    })
                     return;
                 }
                 // Get the text in the response
@@ -84,12 +101,16 @@ export class MapContainer extends React.Component {
                         street:street,
                         contact: contact,
                         readMore: readMore,
-                        fullAdress: fullAdress
+                        fullAdress: fullAdress,
+                        error: ""
                     });
                 });
             })
             .catch(function(err) {
-                self.state.place("Sorry data can't be loaded");
+                self.setState({
+                        error: "Data loading failure",
+                        readMore: ''
+                    })
             });
     }
 
@@ -119,7 +140,6 @@ export class MapContainer extends React.Component {
                         position={location.pos}
                         key={location.id}
                         mapTypeControl= {false}
-
                     />
                 ))}
                 {this.props.isClicked ?
@@ -129,9 +149,11 @@ export class MapContainer extends React.Component {
                     visible={this.props.showingInfoWindow}
                 >
                     <div className="infoWindow">
+                        <h2>{this.state.error}</h2>
                         <h2>{this.state.place}</h2>
                         <h3>{this.state.street}</h3>
-                        <h5>{this.state.readMore}</h5>
+                        <h3>{this.state.fullAdress}</h3>
+                        <a href={this.state.readMore} target="_blank">Read more on Foursquare</a>
                     </div>
                 </InfoWindow>:
                 <InfoWindow
@@ -139,6 +161,7 @@ export class MapContainer extends React.Component {
                     visible={this.state.showingInfoWindow}
                 >
                     <div className="infoWindow">
+                        <h2>{this.state.error}</h2>
                         <h2>{this.state.place}</h2>
                         <h3>{this.state.street}</h3>
                         <h3>{this.state.fullAdress}</h3>
